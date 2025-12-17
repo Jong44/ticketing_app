@@ -1,43 +1,41 @@
-<div class="drawer lg:drawer-open">
-  <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content">
-    <!-- Navbar -->
-    <nav class="navbar w-full bg-base-300">
-      <label for="my-drawer-4" aria-label="open sidebar" class="btn btn-square btn-ghost lg:hidden">
-        <!-- Sidebar toggle icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
-      </label>
-    </nav>
-    <!-- Page content here -->
-    {{ $slot }}
-  </div>
+<div class="drawer-side is-drawer-close:overflow-visible ">
+            <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
+            <div class="flex min-h-full flex-col items-start bg-base-200 w-64 is-drawer-close:w-14 is-drawer-open:w-80">
+                <div class="w-full flex items-center justify-center p-4">
+                    <img src="{{ asset('assets/images/logo_bengkod.svg') }}" alt="Logo">
 
-  <div class="drawer-side is-drawer-close:overflow-visible ">
-    <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-    <div class="flex min-h-full flex-col items-start bg-base-200 w-64 is-drawer-close:w-14 is-drawer-open:w-80">
-        <div class="w-full flex items-center justify-center p-4">
-        <img src="{{ asset('assets/images/logo_bengkod.svg') }}" alt="Logo" >
+                </div>
+                <!-- Sidebar content here -->
+                <ul class="menu w-full grow gap-1">
+                    <li class="{{ request()->routeIs('dashboard') ? 'bg-gray-200 rounded-lg' : '' }}">
+                        <a href="{{ route('dashboard') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Dashboard">
+                            <!-- Home icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M6 19h3v-5q0-.425.288-.712T10 13h4q.425 0 .713.288T15 14v5h3v-9l-6-4.5L6 10zm-2 0v-9q0-.475.213-.9t.587-.7l6-4.5q.525-.4 1.2-.4t1.2.4l6 4.5q.375.275.588.7T20 10v9q0 .825-.588 1.413T18 21h-4q-.425 0-.712-.288T13 20v-5h-2v5q0 .425-.288.713T10 21H6q-.825 0-1.412-.587T4 19m8-6.75" />
+                            </svg>
+                            <span class="is-drawer-close:hidden">Dashboard</span>
+                        </a>
+                    </li>
 
+                    <!-- List item -->
+                    <li class="{{ request()->routeIs('categories') ? 'bg-gray-200 rounded-lg' : '' }}">
+                        <a href="{{ route('categories.index') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Kategori">
+                            <!-- icon Kategori -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 3a3 3 0 1 0 6 0a3 3 0 1 0-6 0" />
+                            </svg>
+                            <span class="is-drawer-close:hidden">Manajemen Kategori</span>
+                        </a>
+                    </li>
+                    <li class="{{ request()->routeIs('aevents') ? 'bg-gray-200 rounded-lg' : '' }}">
+                        <a href="{{ route('events.index') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Event">
+                            <!-- icon Event -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V7a2 2 0 0 1 2-2" />
+                            </svg>
+                            <span class="is-drawer-close:hidden">Manajemen Event</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      <!-- Sidebar content here -->
-      <ul class="menu w-full grow">
-        <li>
-          <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
-            <!-- Home icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="my-1.5 inline-block size-4"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-            <span class="is-drawer-close:hidden">Homepage</span>
-          </button>
-        </li>
-
-        <!-- List item -->
-        <li>
-          <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
-            <!-- Settings icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="my-1.5 inline-block size-4"><path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg>
-            <span class="is-drawer-close:hidden">Settings</span>
-          </button>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
