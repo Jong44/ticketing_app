@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="winter">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'My Laravel App')</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
+
 <body>
     <div class="flex">
         @include('components.sidebar')
@@ -14,7 +17,7 @@
             @yield('content')
         </div>
     </div>
-    
+
     <footer class="bg-light text-center py-3">
         <div class="container">
             <p>© {{ date('Y') }} MyLaravelApp. All rights reserved.</p>
@@ -25,4 +28,5 @@
     {{-- Section untuk script tambahan --}}
     @stack('scripts')
 </body>
+
 </html>
