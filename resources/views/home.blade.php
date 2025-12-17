@@ -15,9 +15,14 @@
         <div class="flex justify-between items-center mb-8">
             <h2 class="text-2xl font-black uppercase italic">Event</h2>
             <div class="flex gap-2">
-                <x-ui.category-pill label="Konser" active />
-                <x-ui.category-pill label="Running" />
-                <x-ui.category-pill label="Seminar" />
+                <a href="{{ route('home') }}">
+                    <x-ui.category-pill :label="'Semua'" :active="!request('kategori')" />
+                </a>
+                @foreach($categories as $kategori)
+                    <a href="{{ route('home', ['kategori' => $kategori->id]) }}">
+                        <x-ui.category-pill :label="$kategori->nama" :active="request('kategori') == $kategori->id" />
+                    </a>
+                @endforeach
             </div>
         </div>
 

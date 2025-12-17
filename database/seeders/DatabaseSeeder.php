@@ -28,9 +28,20 @@ class DatabaseSeeder extends Seeder
         // Create a regular user
         User::factory()->create();
 
-        Kategori::factory()->count(5)->create();
+        // Seed explicit categories
+        $this->call(\Database\Seeders\KategoriSeeder::class);
+
         // 1. Create 20 Events
         \App\Models\Event::factory(20)->create();
+
+        // Assign events evenly to the three categories
+        $categories = \App\Models\Kategori::whereIn('nama', ['Konser', 'Running', 'Seminar'])->get();
+        $i = 0;
+        foreach (\App\Models\Event::all() as $event) {
+            $event->kategori_id = $categories[$i % $categories->count()]->id;
+            $event->save();
+            $i++;
+        }
 
         // 2. Create 20 Tikets
         \App\Models\Tiket::factory(20)->create();
