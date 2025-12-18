@@ -2,12 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    use HasFactory;
+    protected $casts = [
+        'total_harga' => 'decimal:2',
+        'order_date' => 'datetime',
+    ];
+
     protected $fillable = [
         'user_id',
+        'event_id',
+        'order_date',
         'total_harga',
     ];
 
@@ -23,12 +32,15 @@ class Order extends Model
 
     public function events()
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(Event::class, 'event_id');
     }
+
+    
 
     public function detailOrders()
     {
         return $this->hasMany(DetailOrder::class);
     }
+
 
 }
