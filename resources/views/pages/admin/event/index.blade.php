@@ -23,7 +23,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
+                        <th class="w-1/3">Judul</th>
                         <th>Kategori</th>
                         <th>Tanggal</th>
                         <th>Lokasi</th>
@@ -34,19 +34,19 @@
                     @forelse ($events as $index => $event)
                     <tr>
                         <th>{{ $index + 1 }}</th>
-                        <td>{{ $event->nama }}</td>
+                        <td>{{ $event->judul }}</td>
                         <td>{{ $event->kategori->nama }}</td>
-                        <td>{{ $event->tanggal->format('d M Y') }}</td>
+                        <td>{{ $event->tanggal_waktu->format('d M Y') }}</td>
                         <td>{{ $event->lokasi }}</td>
                         <td>
-                            <button class="btn btn-sm btn-info mr-2">Detail</button>
-                            <button class="btn btn-sm btn-primary mr-2" onclick="openEditModal(this)" data-id="{{ $event->id }}" data-nama="{{ $event->nama }}">Edit</button>
+                            <a href="{{ route('events.show', $event->id) }}" class="btn btn-sm btn-info mr-2">Detail</a>
+                            <a href="{{ route('events.edit', $event->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
                             <button class="btn btn-sm bg-red-500 text-white" onclick="openDeleteModal(this)" data-id="{{ $event->id }}">Hapus</button>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="3" class="text-center">Tidak ada event tersedia.</td>
+                        <td colspan="6" class="text-center">Tidak ada event tersedia.</td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -60,7 +60,7 @@
             @csrf
             @method('DELETE')
 
-            <input type="hidden" name="category_id" id="delete_category_id">
+            <input type="hidden" name="event_id" id="delete_event_id">
 
             <h3 class="text-lg font-bold mb-4">Hapus Event</h3>
             <p>Apakah Anda yakin ingin menghapus event ini?</p>
@@ -75,10 +75,10 @@
         function openDeleteModal(button) {
             const id = button.dataset.id;
             const form = document.querySelector('#delete_modal form');
-            document.getElementById("delete_category_id").value = id;
+            document.getElementById("delete_event_id").value = id;
 
             // Set action dengan parameter ID
-            form.action = `/admin/categories/${id}`
+            form.action = `/admin/events/${id}`
 
             delete_modal.showModal();
         }

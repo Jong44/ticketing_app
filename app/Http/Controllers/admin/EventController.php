@@ -33,9 +33,9 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|string|max:255',
+            'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'tanggal' => 'required|date',
+            'tanggal_waktu' => 'required|date',
             'lokasi' => 'required|string|max:255',
             'kategori_id' => 'required|exists:kategoris,id',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -48,6 +48,8 @@ class EventController extends Controller
             $validatedData['gambar'] = $imageName;
         }
 
+        $validatedData['user_id'] = auth()->user()->id ?? null;
+
         Event::create($validatedData);
 
         return redirect()->route('events.index')->with('success', 'Event berhasil ditambahkan.');
@@ -59,7 +61,10 @@ class EventController extends Controller
     public function show(string $id)
     {
         $event = Event::findOrFail($id);
-        return view('pages.admin.event.show', compact('event'));
+        $categories = Kategori::all();
+        $tickets = $event->tikets;
+
+        return view('pages.admin.event.show', compact('event', 'categories', 'tickets'));
     }
 
     /**
@@ -68,7 +73,8 @@ class EventController extends Controller
     public function edit(string $id)
     {
         $event = Event::findOrFail($id);
-        return view('pages.admin.event.edit', compact('event'));
+        $categories = Kategori::all();
+        return view('pages.admin.event.edit', compact('event', 'categories'));
     }
 
     /**
@@ -76,27 +82,31 @@ class EventController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $event = Event::findOrFail($id);
+        try {
+            $event = Event::findOrFail($id);
 
-        $validatedData = $request->validate([
-            'nama' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'tanggal' => 'required|date',
-            'lokasi' => 'required|string|max:255',
-            'kategori_id' => 'required|exists:kategoris,id',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+            $validatedData = $request->validate([
+                'judul' => 'required|string|max:255',
+                'deskripsi' => 'required|string',
+                'tanggal_waktu' => 'required|date',
+                'lokasi' => 'required|string|max:255',
+                'kategori_id' => 'required|exists:kategoris,id',
+                'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
 
-        // Handle file upload
-        if ($request->hasFile('gambar')) {
-            $imageName = time().'.'.$request->gambar->extension();
-            $request->gambar->move(public_path('images/events'), $imageName);
-            $validatedData['gambar'] = $imageName;
+            // Handle file upload
+            if ($request->hasFile('gambar')) {
+                $imageName = time().'.'.$request->gambar->extension();
+                $request->gambar->move(public_path('images/events'), $imageName);
+                $validatedData['gambar'] = $imageName;
+            }
+
+            $event->update($validatedData);
+
+            return redirect()->route('events.index')->with('success', 'Event berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat memperbarui event: ' . $e->getMessage()]);
         }
-
-        $event->update($validatedData);
-
-        return redirect()->route('events.index')->with('success', 'Event berhasil diperbarui.');
     }
 
     /**

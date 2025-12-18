@@ -1,11 +1,12 @@
-<x-layouts.admin_layouts title="Tambah Event Baru">
+<x-layouts.admin_layouts title="Edit Event">
     <div class="container mx-auto p-10">
         <div class="card bg-base-100 shadow-sm">
             <div class="card-body">
-                <h2 class="card-title text-2xl mb-6">Tambah Event Baru</h2>
+                <h2 class="card-title text-2xl mb-6">Edit Event</h2>
                 
-                <form id="eventForm" class="space-y-4" method="post" action="{{ route('events.store') }}" enctype="multipart/form-data">
+                <form id="eventForm" class="space-y-4" method="post" action="{{ route('events.update', $event->id) }}" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <!-- Nama Event -->
                     <div class="form-control">
                         <label class="label">
@@ -16,6 +17,7 @@
                             name="judul" 
                             placeholder="Contoh: Konser Musik Rock" 
                             class="input input-bordered w-full" 
+                            value="{{ $event->judul }}"
                             required
                         />
                     </div>
@@ -31,7 +33,7 @@
                             placeholder="Deskripsi lengkap tentang event..." 
                             class="textarea textarea-bordered h-24 w-full" 
                             required
-                        ></textarea>
+                        >{{ $event->deskripsi }}</textarea>
                     </div>
 
                     <!-- Tanggal & Waktu -->
@@ -43,6 +45,7 @@
                             type="datetime-local" 
                             name="tanggal_waktu" 
                             class="input input-bordered w-full" 
+                            value="{{ $event->tanggal_waktu->format('Y-m-d\TH:i') }}"
                             required
                         />
                     </div>
@@ -57,6 +60,7 @@
                             name="lokasi" 
                             placeholder="Contoh: Stadion Utama" 
                             class="input input-bordered w-full" 
+                            value="{{ $event->lokasi }}"
                             required
                         />
                     </div>
@@ -69,7 +73,11 @@
                         <select name="kategori_id" class="select select-bordered w-full" required>
                             <option value="" disabled selected>Pilih Kategori</option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->nama }}</option>
+                                if ($category->id == $event->kategori_id) {
+                                    <option value="{{ $category->id }}" selected>{{ $category->nama }}</option>
+                                } else {
+                                    <option value="{{ $category->id }}">{{ $category->nama }}</option>
+                                }
                             @endforeach
                         </select>
                     </div>
@@ -84,7 +92,6 @@
                             name="gambar" 
                             accept="image/*"
                             class="file-input file-input-bordered w-full" 
-                            required
                         />
                         <label class="label">
                             <span class="label-text-alt">Format: JPG, PNG, max 5MB</span>
@@ -99,7 +106,11 @@
                         <br>
                         <div class="avatar max-w-sm">
                             <div class="w-full rounded-lg">
-                                <img id="previewImg" src="" alt="Preview">
+                                @if ($event->gambar)
+                                    <img id="previewImg" src="{{ asset('images/events/' . $event->gambar) }}" alt="Preview">
+                                @else
+                                    <img id="previewImg" src="" alt="Preview">
+                                @endif
                             </div>
                         </div>
                     </div>

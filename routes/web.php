@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\EventController;
+use App\Http\Controllers\admin\TicketController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +18,7 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('categories', CategoryController::class);
     Route::resource('events', EventController::class);
+    Route::resource('tickets', TicketController::class);
 });
 
 
