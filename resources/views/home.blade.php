@@ -6,7 +6,6 @@
                 <p class="py-6">
                     BengTix: Beli tiket, auto asik.
                 </p>
-                <button class="btn btn-primary rounded-xl">Mulai Sekarang</button>
             </div>
         </div>
     </div>
@@ -19,17 +18,17 @@
                     <x-ui.category-pill :label="'Semua'" :active="!request('kategori')" />
                 </a>
                 @foreach($categories as $kategori)
-                    <a href="{{ route('home', ['kategori' => $kategori->id]) }}">
-                        <x-ui.category-pill :label="$kategori->nama" :active="request('kategori') == $kategori->id" />
-                    </a>
+                <a href="{{ route('home', ['kategori' => $kategori->id]) }}">
+                    <x-ui.category-pill :label="$kategori->nama" :active="request('kategori') == $kategori->id" />
+                </a>
                 @endforeach
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach($events as $event)
-                <x-event-card :title="$event->judul" :date="$event->tanggal_waktu" :location="$event->lokasi"
-                    :price="$event->tikets_min_harga" :image="$event->gambar" :href="route('events.show', $event)" />
+            <x-event-card :title="$event->judul" :date="$event->tanggal_waktu" :location="$event->lokasi"
+                :price="$event->tikets_min_harga" :image="$event->gambar" :href="route('events.show', $event)" />
             @endforeach
         </div>
     </section>

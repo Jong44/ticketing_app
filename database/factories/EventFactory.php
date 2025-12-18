@@ -19,7 +19,7 @@ class EventFactory extends Factory
             'lokasi' => $this->faker->address(),
             'tanggal_waktu' => $this->faker->dateTimeBetween('+1 day', '+1 month'),
             'kategori_id' => 1, // change if needed
-            "gambar" => "storage/konser.jpeg"
+            "gambar" => "storage/yaya.png"
         ];
     }
 }
