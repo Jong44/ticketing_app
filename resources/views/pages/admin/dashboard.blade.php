@@ -5,19 +5,19 @@
             <div class="card bg-base-100 card-sm shadow-xs p-2">
                 <div class="card-body">
                     <h2 class="card-title text-md">Total Event</h2>
-                    <p class="font-bold text-4xl">120</p>
+                    <p class="font-bold text-4xl">{{ $totalEvents }}</p>
                 </div>
             </div>
             <div class="card bg-base-100 card-sm shadow-xs p-2">
                 <div class="card-body">
                     <h2 class="card-title text-md">Kategori</h2>
-                    <p class="font-bold text-4xl">120</p>
+                    <p class="font-bold text-4xl">{{ $totalCategories }}</p>
                 </div>
             </div>
             <div class="card bg-base-100 card-sm shadow-xs p-2">
                 <div class="card-body">
                     <h2 class="card-title text-md">Total Transaksi</h2>
-                    <p class="font-bold text-4xl">120</p>
+                    <p class="font-bold text-4xl">{{ $totalOrders }}</p>
                 </div>
             </div>
         </div>

@@ -16,8 +16,8 @@ class DashboardController extends Controller
     public function index()
     {
         $totalEvents = Event::count();
-        $totalTickets = Tiket::count();
+        $totalCategories = \App\Models\Kategori::count();
         $totalOrders = Order::count();
-        return view('pages.admin.dashboard');
+        return view('pages.admin.dashboard', compact('totalEvents', 'totalCategories', 'totalOrders'));
     }
 }

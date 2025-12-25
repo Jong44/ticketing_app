@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.admin_layouts title="Detail Pemesanan">
   <section class="max-w-4xl mx-auto py-12 px-6">
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-2xl font-bold">Detail Pemesanan</h1>
@@ -41,11 +41,11 @@
 
           </div>
           <div class="sm:ml-auto sm:mt-auto sm:mr-0 mx-auto mt-3 flex gap-2">
-            <a href="{{ route('orders.index') }}" class="btn btn-primary">Kembali ke Riwayat</a>
+            <a href="{{ route('histories.index') }}" class="btn btn-primary">Kembali ke Riwayat</a>
           </div>
         </div>
       </div>
 
     </div>
   </section>
-</x-layouts.app>
+</x-layouts.admin_layouts>
