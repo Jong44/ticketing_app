@@ -9,15 +9,15 @@
         <article class="card lg:card-side bg-base-100 shadow-md overflow-hidden">
           <figure class="lg:w-48">
             <img
-              src="{{ $order->events?->gambar ? asset($order->events->gambar) : 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp' }}"
-              alt="{{ $order->events?->judul ?? 'Event' }}" class="w-full h-full object-cover" />
+              src="{{ $order->event?->gambar ? asset($order->event->gambar) : 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp' }}"
+              alt="{{ $order->event?->judul ?? 'Event' }}" class="w-full h-full object-cover" />
           </figure>
 
           <div class="card-body flex justify-between ">
             <div>
               <div class="font-bold">Order #{{ $order->id }}</div>
               <div class="text-sm text-gray-500 mt-1">{{ $order->order_date->translatedFormat('d F Y, H:i') }}</div>
-              <div class="text-sm mt-2">{{ $order->events?->judul ?? 'Event' }}</div>
+              <div class="text-sm mt-2">{{ $order->event?->judul ?? 'Event' }}</div>
             </div>
 
             <div class="text-right">
