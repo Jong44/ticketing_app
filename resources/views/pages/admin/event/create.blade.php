@@ -4,7 +4,7 @@
             <div class="card-body">
                 <h2 class="card-title text-2xl mb-6">Tambah Event Baru</h2>
                 
-                <form id="eventForm" class="space-y-4" method="post" action="{{ route('events.store') }}" enctype="multipart/form-data">
+                <form id="eventForm" class="space-y-4" method="post" action="{{ route('admin.events.store') }}" enctype="multipart/form-data">
                     @csrf
                     <!-- Nama Event -->
                     <div class="form-control">

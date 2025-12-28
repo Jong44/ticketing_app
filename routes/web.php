@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->middleware('admin')->group(function () {
         Route::get('/', [\App\Http\Controllers\admin\DashboardController::class, 'index'])->name('dashboard');
         Route::resource('categories', CategoryController::class);
-        Route::resource('events', AdminEventController::class);
+        Route::resource('events', AdminEventController::class)->names('admin.events');
         Route::resource('tickets', TicketController::class);
         Route::resource('histories', HistoriesController::class);
     });
