@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\admin\HistoriesController;
 
 
 
@@ -25,12 +26,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::prefix('admin')->middleware('admin')->group(function () {
-        Route::get('/', function () {
-            return view('pages.admin.dashboard');
-        })->name('dashboard');
+        Route::get('/', [\App\Http\Controllers\admin\DashboardController::class, 'index'])->name('dashboard');
         Route::resource('categories', CategoryController::class);
         Route::resource('events', AdminEventController::class);
         Route::resource('tickets', TicketController::class);
+        Route::resource('histories', HistoriesController::class);
     });
 });
 

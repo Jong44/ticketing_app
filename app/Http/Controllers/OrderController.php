@@ -16,7 +16,7 @@ class OrderController extends Controller
   public function index()
   {
     $user = Auth::user() ?? \App\Models\User::first();
-    $orders = Order::where('user_id', $user->id)->with('events')->orderBy('created_at', 'desc')->get();
+    $orders = Order::where('user_id', $user->id)->with('event')->orderBy('created_at', 'desc')->get();
     
     return view('orders.index', compact('orders'));
   }
@@ -24,7 +24,7 @@ class OrderController extends Controller
   // show a specific order
   public function show(Order $order)
   {
-    $order->load('detailOrders.tiket', 'events');
+    $order->load('detailOrders.tiket', 'event');
     return view('orders.show', compact('order'));
   }
 
