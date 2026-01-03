@@ -10,6 +10,7 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'judul',
         'deskripsi',
         'tanggal_waktu',
@@ -36,9 +37,4 @@ class Event extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }
-
 }
